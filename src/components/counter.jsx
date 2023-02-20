@@ -1,11 +1,3 @@
-/* REV. 1.2 NOTES:
-    INCREMENT BUTTON ADDED
-    EXTRA DIV REMOVED BY USING React.Fragment
-    STATE PROPERTY ADDED TO CONTER CLASS
-    Dynamically render button colors depending on counter.
-    Handle event added to increment button by using an arrow function
-*/
-
 import React, { Component } from 'react'
 
 // React.Fragment is used to remove the extra div element.
@@ -13,7 +5,7 @@ import React, { Component } from 'react'
 export default class Counter extends Component {
     // anything that needs to be changed dynamically goes into the state property.
     state = {
-        count: 0
+        value: this.props.value
     };
     
     //css properties in camelCase notation 
@@ -24,9 +16,8 @@ export default class Counter extends Component {
     }  this method could be used to bind events or an arrow fnction as used below*/
 
 
-    handleIncrement = (product) => {
-        console.log(product)
-        this.setState ({ count: this.state.count + 1 })
+    handleIncrement = () => {
+        this.setState ({ value: this.state.value + 1 })
     };
 
     render() { 
@@ -46,12 +37,12 @@ export default class Counter extends Component {
 
     getBadgeClasses() {
         let classes = "badge m-2 badge-";
-        classes += this.state.count === 0 ? "warning" : "primary";
+        classes += this.state.value === 0 ? "warning" : "primary";
         return classes;
     }
 
     formatCount() {
-        const { count } = this.state;
+        const { value: count } = this.state;
         return count === 0 ? "zero" : count
     }
 }
