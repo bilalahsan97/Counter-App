@@ -4,9 +4,7 @@ import React, { Component } from 'react'
 
 export default class Counter extends Component {
     // anything that needs to be changed dynamically goes into the state property.
-    state = {
-        value: this.props.value
-    };
+    
     
     //css properties in camelCase notation 
 
@@ -15,34 +13,34 @@ export default class Counter extends Component {
         this.handleIncrement = this.handleIncrement.bind(this);
     }  this method could be used to bind events or an arrow fnction as used below*/
 
-
-    handleIncrement = () => {
-        this.setState ({ value: this.state.value + 1 })
-    };
-
     render() { 
         return (
-            <React.Fragment>
+            <div>
                 <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
                 <button 
-                    onClick={ () => this.handleIncrement() }
-                    className='btn bn-secondary bn-sm'
+                    onClick={() => this.props.onIncrement(this.props.counter)}
+                    className='btn bn-secondary bn-sm m-2'
                  >
                     Increment
                 </button>
-            </React.Fragment>
-        );
-    }
+                <button onClick={ () => this.props.onDelete(this.props.counter.id)}
+                 className="btn btn-danger btn-sm m2"
+                 >
+                    Delete
+                </button>
+            </div>
+        )
+    };
     //whenever the map method is used to render a list of items, for each item you must set a key attribute.
 
     getBadgeClasses() {
         let classes = "badge m-2 badge-";
-        classes += this.state.value === 0 ? "warning" : "primary";
+        classes += this.props.counter.value === 0 ? "warning" : "primary";
         return classes;
     }
 
     formatCount() {
-        const { value: count } = this.state;
+        const { value: count } = this.props.counter;
         return count === 0 ? "zero" : count
     }
 }
